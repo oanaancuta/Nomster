@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "font-awesome";
 
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -35,6 +36,16 @@ body {
   font-size: 3vw;
   font-variant: small-caps;
 }
+
+.navbar-inverse .navbar-nav .nav-link {
+  color: #2FB3A2;
+  font-family: 'alex_brushregular', cursive;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.8vw;
+  font-variant: small-caps;
+}
+
 
 .pagination {
   color: #2FB3A2;
