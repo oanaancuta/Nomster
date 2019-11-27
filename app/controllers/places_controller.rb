@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
 
   def index
     @places = Place.all.paginate(:page => params[:page], :per_page => 3)
@@ -21,10 +21,17 @@ class PlacesController < ApplicationController
 
   def edit
     @place = Place.find(params[:id])
+
+    if @place.user != current_user
+      return render plain: 'Not Allowed', status: :forbidden
+    end
   end
 
   def update
     @place = Place.find(params[:id])
+    if @place.user != current_user
+      retun render plain: 'Not Allowed', status: :forbidden
+    end
     @place.update_attributes(place_params)
     redirect_to root_path
   end
@@ -42,10 +49,4 @@ class PlacesController < ApplicationController
     params.require(:place).permit(:name, :address, :description)
   end
 
-
-
-
 end
-
-# Lines 12 - 15 are used to store place in the database and redirect user to places controller, index action - root Prefix (using rake routes command) => send user to root_path
-# Lines 20 - 22 are used to pull the user provided name, address, description values from the form
