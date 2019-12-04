@@ -43,11 +43,19 @@
   </div>
 </div>
 
-<h2 class="center"</h2>
+<div class="row col-10 offset-1">
     <% @place.photos.each do |photo| %>
-    <%= image_tag(photo.picture.to_s) %>
-    <%= photo.caption %>
-   <% end %>
+    <%= image_tag(photo.picture.to_s, size: "1555x700", :style => "border: 3px solid green") %>
+  <% end %>
+</div>
+
+<div class="col-12 offset-1">
+  <h2 class="center"</h2>
+    <% @place.photos.each do |photo| %>
+      <%= photo.caption %>
+  <% end %>
+</div>
+
 
 <div class="clear"></div>
 
