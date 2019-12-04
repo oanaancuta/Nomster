@@ -43,11 +43,11 @@
   </div>
 </div>
 
-<div class="col-10 offset-1"
-  <h2 class="float-left">Picture Caption</h2>
-    <% @place.photos.each do |photo| %>    
+<div class="center"
+    <h2 class="float-left" </h2>
+    <% @place.photos.each do |photo| %>
+    <%= image_tag(photo.picture.to_s) %>
     <%= photo.caption %>
-    <%= image_tag(User.photos) %>
    <% end %>
 </div>
 
