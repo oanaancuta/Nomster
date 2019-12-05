@@ -38,32 +38,11 @@
 <div class="float-right">
   <% if current_user && current_user == @place.user %>
     <%= link_to 'Edit', edit_place_path(@place), class: 'btn btn-primary' %>
-    <%= link_to 'Destroy', place_path(@place), method: :delete, data: {confirm: 'Are you sure you want to delte this?'},class: 'btn btn-danger' %>
+    <%= link_to 'Destroy', place_path(@place), method: :delete, data: {confirm: 'Are you sure you want to delete this?'},class: 'btn btn-danger' %>
+    <button type="button" class="btn btn-primary btn-med float-left" data-toggle="modal" data-target="#myPhotoModal"> Add a photo </button>
     <% end %>
   </div>
 </div>
-
-<div class="row col-10 offset-1">
-    <% @place.photos.each do |photo| %>
-    <%= image_tag(photo.picture.to_s, size: "1555x700", :style => "border: 3px solid green") %>
-  <% end %>
-</div>
-
-<div class="col-12 offset-1">
-  <h2 class="center"</h2>
-    <% @place.photos.each do |photo| %>
-      <%= photo.caption %>
-  <% end %>
-</div>
-
-
-<div class="clear"></div>
-
-<%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
-  <%= f.input :caption %>
-  <%= f.input :picture %>
-  <%= f.submit "Add a photo", class: 'btn btn-primary' %>
-<% end %>
 
 <div class="clear"></div>
 
@@ -94,22 +73,57 @@
 <div class="col-10 offset-1"
   <h1 class="float-left">Comments</h1>
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary btn-lg float-right" data-toggle="modal" data-target="#myModal">
-    Add a comment
-  </button>
+  <button type="button" class="btn btn-primary btn-lg float-right" data-toggle="modal" data-target="#myModal"> Add a comment </button>
 </div>
 
 <div class="clear"></div>
 
 <div class="row">
-<% @place.comments.each do |comment| %>
-  <div class="col-12 col-sm-6">
-    <blockquote>
-      <% if comment.humanized_rating.present? %>
-      <b><%= comment.humanized_rating %></b> -
+  <% @place.comments.each do |comment| %>
+    <div class="col-12 col-sm-6">
+      <blockquote>
+        <% if comment.humanized_rating.present? %>
+        <b><%= comment.humanized_rating %></b> -
+        <% end %>
+        <%= comment.message %>
+        <small><%= comment.user.email %></small>
+      </blockquote>
+    </div>
+  <% end %>
+
+<div class="col-10 offset-1">
+  <% @place.photos.each do |photo| %>
+    <%= image_tag(photo.picture.to_s, size: "1555x700", :style => "border: 3px solid green") %>
+  <% end %>
+</div>
+
+<div class="col-12 offset-1">
+  <h2 class="center"</h2>
+    <% @place.photos.each do |photo| %>
+      <%= photo.caption %>
+    <% end %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myPhotoModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="myPhotoModal">Add a photo</h4>
+      </div>
+      <%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
+      <div class="modal-body">
+          <%= f.input :caption %>
+          <%= f.input :picture %>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= f.submit "Add a Photo", class: 'btn btn-primary' %>
+      </div>
       <% end %>
-      <%= comment.message %>
-      <small><%= comment.user.email %></small>
-    </blockquote>
+    </div>
   </div>
-<% end %>
+</div>
