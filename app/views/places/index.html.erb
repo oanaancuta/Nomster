@@ -5,7 +5,14 @@
     <h1><%= link_to place.name, place_path(place) %></h1><br />
     <i><%= place.address %></i><br />
     <p><%= place.description %></p><br />
+  <% if place.photos.present? %>
+    <div class="col-12 offset-3">
+      <%= image_tag place.photos.last.picture.to_s, size: "700x400", :style => "border: 3px solid green" %>
+    </div>
+  <% end %>
   </div>
+
+
 
   <% if place.user.present? %>
     <small><%= place.user.email %></small>
@@ -21,12 +28,6 @@
     <small><%= place.comments.last.user.email %></small>
   </blockquote>
 </div>
-
- <% if place.photos.present? %>
-    <div class="col-10 offset-1">
-      <%= place.photos.last %>
-      <% end %>
-    </div>
-  <% end %>
+<% end %> 
 
 <% end %>

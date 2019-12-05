@@ -93,7 +93,7 @@
 
 <div class="col-10 offset-1">
   <% @place.photos.each do |photo| %>
-    <%= image_tag(photo.picture.to_s, size: "1555x700", :style => "border: 3px solid green") %>
+    <%= image_tag photo.picture.to_s, size: "1555x700", :style => "border: 3px solid green" %>
   <% end %>
 </div>
 
